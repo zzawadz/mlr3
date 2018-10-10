@@ -33,7 +33,12 @@ learners = mlr_learners$mget(c("classif.dummy", "classif.rpart"))
 resamplings = mlr_resamplings$mget(c("holdout", "cv"))
 measures = mlr_measures$mget(c("acc", "time_train"))
 bmr = benchmark(tasks, learners, resamplings, measures)
+
+# performance for all conducted experiments
 bmr$performance
+
+# aggregated performance values
+bmr$aggregated
 
 # Overview of of resamplings that were conducted internally
 rrs = bmr$resample_results
