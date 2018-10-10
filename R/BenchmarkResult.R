@@ -6,8 +6,6 @@
 #' @section Usage:
 #'
 #' ```
-#' rr$experiment(iter)
-#' rr$experiments(iters)
 #' bmr$performance
 #' bmr$aggregated
 #' bmr$resample_results
@@ -19,14 +17,11 @@
 #'   String which identifies a subgroup to extract as [ResampleResult].
 #'
 #' @section Details:
-#' `$experiment()` returns an [Experiment] for the `iter`-th resampling iteration.
-#'
-#' `$experiments()` returns a list with the slice of [Experiment]s for the provided `iters`.
-#'
 #' `$performance` provides a [data.table::data.table()] with column `iteration` (integer) and a numeric column for each
 #'   performance measure (columns named using the measure ids).
 #'
-#' `$aggregated` returns the aggregated performance measures. The aggregation method is part of the [Measure].
+#' `$aggregated` returns the aggregated performance measures as a [data.table::data.table()].
+#'   Experiments are grouped by [Task], [Learner], [Resampling] and [Measure].
 #'
 #' `$resample_results` returns a [data.table::data.table()] which gives an overview of the subgroups in the benchmark.
 #'   Groups of experiments in the [BenchmarkResult] can be extracted as [ResampleResult].
@@ -67,6 +62,12 @@ BenchmarkResult = R6Class("BenchmarkResult",
       res = self$data[, list(task = ids(task), learner = ids(learner), resampling = ids(resampling), hash = hash, performance = performance)]
       setorderv(res, c("task", "learner", "resampling"))
       rcbind(res[, !"performance"], rbindlist(res$performance, fill = TRUE))[]
+    },
+
+    aggregated = function() {
+      aggregate = function(data) as.list(ResampleResult$new(data)$aggregated)
+      tab = self$data[, list(task = task[1L], learner = learner[1L], resampling = resampling[1L], rr = list(aggregate(.SD))), by = hash]
+      flatten(tab, "rr")
     }
   )
 )

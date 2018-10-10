@@ -7,9 +7,7 @@
 This is the object returned by \link{benchmark}.
 }
 \section{Usage}{
-\preformatted{rr$experiment(iter)
-rr$experiments(iters)
-bmr$performance
+\preformatted{bmr$performance
 bmr$aggregated
 bmr$resample_results
 bmr$resample_result(hash)

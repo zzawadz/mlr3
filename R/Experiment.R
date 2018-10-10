@@ -298,3 +298,7 @@ combine_experiments = function(x) {
     exp
   }))
 }
+
+hash_experiment = function(data) {
+  digest::digest(c(data$task$hash, data$learner$hash, data$resampling$hash), algo = "xxhash64")
+}

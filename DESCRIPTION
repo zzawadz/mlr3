@@ -81,7 +81,6 @@ Collate:
     'benchmark.R'
     'cache.R'
     'exec_control.R'
-    'hash.R'
     'helper_asserts.R'
     'helper_condition.R'
     'helper_data.table.R'

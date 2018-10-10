@@ -27,14 +27,6 @@ ResamplingCustom = R6Class("ResamplingCustom", inherit = Resampling,
   active = list(
     iters = function() {
       length(self$instance$train)
-    },
-
-    hash = function() {
-      if (is.null(self$instance$train) || is.null(self$instance$test))
-        return(NA_character_)
-      if (is.na(private$.hash))
-        private$.hash = hash(self)
-      private$.hash
     }
   )
 )

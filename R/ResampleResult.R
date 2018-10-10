@@ -117,14 +117,13 @@ ResampleResult = R6Class("ResampleResult",
     },
 
     aggregated = function() {
-      measures = self$data$task[[1L]]$measures
+      measures = self$data$measures[[1L]]
       setNames(vnapply(measures, function(m) m$aggregate(self)), ids(measures))
     },
 
     hash = function() {
-      if (is.na(private$.hash)) {
-        private$.hash = hash(self$experiment(1L))
-      }
+      if (is.na(private$.hash))
+        private$.hash = hash_experiment(self$experiment(1L)$data)
       private$.hash
     }
   ),

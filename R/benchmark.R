@@ -3,7 +3,6 @@
 #' @description
 #' Runs a benchmark of the cross-product of learners, tasks, and resampling strategies (possibly in parallel).
 #'
-#'
 #' @param tasks (`list` of [Task])\cr
 #'   List of objects of type [Task].
 #' @param learners (`list` of [Learner])\cr
@@ -21,7 +20,12 @@
 #' resamplings = mlr_resamplings$mget(c("holdout", "cv"))
 #' measures = mlr_measures$mget(c("acc", "time_train"))
 #' bmr = benchmark(tasks, learners, resamplings, measures)
+#'
+#' # performance for all conducted experiments
 #' bmr$performance
+#'
+#' # aggregated performance values
+#' bmr$aggregated
 #'
 #' # Overview of of resamplings that were conducted internally
 #' rrs = bmr$resample_results
@@ -66,7 +70,7 @@ benchmark = function(tasks, learners, resamplings, measures = NULL, ctrl = exec_
 
   # compute hashes
   task = learner = instance = NULL
-  grid[, "hash" := hash.list(list(task = tasks[[task]], learner = learners[[learner]], resampling = instances[[instance]])), by = c("task", "learner", "instance")]
+  grid[, "hash" := hash_experiment(list(task = tasks[[task]], learner = learners[[learner]], resampling = instances[[instance]])), by = c("task", "learner", "instance")]
 
   if (use_future(ctrl)) {
     debug("Running resample() via future with %i iterations", nrow(grid))

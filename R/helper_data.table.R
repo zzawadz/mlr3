@@ -15,3 +15,15 @@ rcbind = function(x, y) {
 
   x[, names(y) := y]
 }
+
+# assumes that foreach col in cols: each row is a named list of scalar values
+# these lists get rbindlist()-ed and cbind()-ed to x
+# the original columns are removed
+flatten = function(x, cols) {
+  for (col in cols) {
+    tmp = rbindlist(x[[col]], fill = TRUE)
+    x[, names(tmp) := tmp]
+    x[, (col) := NULL]
+  }
+  x[]
+}
