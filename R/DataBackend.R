@@ -47,6 +47,7 @@ NULL
 #' @export
 DataBackend = R6Class("DataBackend", cloneable = FALSE,
   public = list(
+    primary_key = NULL,
     print = function() {
       catf("Backend <%s> (%ix%i)", class(self)[1L], self$nrow, self$ncol)
       print(b$head(6L))

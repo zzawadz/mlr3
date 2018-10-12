@@ -29,6 +29,7 @@ Imports:
     paradox,
     R6
 Suggests:
+    Matrix,
     datasets,
     devtools,
     evaluate,
@@ -58,6 +59,7 @@ Collate:
     'DataBackend.R'
     'DataBackendCbind.R'
     'DataBackendDataTable.R'
+    'DataBackendMatrix.R'
     'DataBackendRbind.R'
     'Dictionary.R'
     'Experiment.R'

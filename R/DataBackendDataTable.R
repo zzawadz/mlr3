@@ -35,11 +35,8 @@ NULL
 
 #' @include DataBackend.R
 #' @export
-DataBackendDataTable = R6Class("DataBackendDataTable", inherit = DataBackend,
-  cloneable = FALSE,
+DataBackendDataTable = R6Class("DataBackendDataTable", inherit = DataBackend, cloneable = FALSE,
   public = list(
-    primary_key = NULL,
-
     initialize = function(data, primary_key = NULL) {
       assert_data_frame(data, min.rows = 1L, min.cols = 1L)
 
